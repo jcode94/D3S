@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
 
 class D3S
 {
@@ -12,15 +14,15 @@ class D3S
 		// Create Menu Bar
 		JMenuBar menuBar = new JMenuBar();
 
-		// Create File Menu
+		// Create menus
 		JMenu fileMenu = new JMenu("File");
-		for (String fileOption : fileMenuOptions)
-			fileMenu.add(new JMenuItem(fileOption));
-
-		// Create Help Menu
 		JMenu helpMenu = new JMenu("Help");
-		for (String helpOption : helpMenuOptions)
-			helpMenu.add(new JMenuItem(helpOption));
+		
+		for (String option : fileMenuOptions)
+			fileMenu.add(new JMenuItem(option));
+			
+		for (String option : helpMenuOptions)
+			helpMenu.add(new JMenuItem(option));
 
 		// Add menus to menubar
 		menuBar.add(fileMenu);
@@ -41,16 +43,14 @@ class D3S
 		frame.setIconImage(icon.getImage());
 		frame.setJMenuBar(createJMenuBar());
 
-		// JFrame main pane and professional pane accessories
-		JPanel pane = new JPanel(new GridBagLayout());
-		GridBagConstraints constraints = new GridBagConstraints();
-		pane.setBackground(new Color(28, 101, 119));
+		// JFrame main pane and professional contentPane accessories
+		MainPane contentPane = new MainPane();
 
-		frame.setContentPane(pane);
+		frame.setContentPane(contentPane);
 
 		// Follow the following model for adding lightweight components:
 		//
-		// 		pane.add(theComponent, constraints);
+		// 		contentPane.add(theComponent, constraints);
 
 		// Display the window.
 		frame.pack();
@@ -67,5 +67,32 @@ class D3S
 				createAndShowGui();
 			}
 		});
+	}
+}
+
+class MainPane extends JPanel {
+	public MainPane() {
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		setBorder(new EmptyBorder(2, 3, 2, 3));
+		setBackground(new Color(28, 101, 119));
+		
+		c.gridwidth = 5;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.insets = new Insets(5, 5, 5, 5);
+		
+		add(new JLabel("Label 1"), c);
+		c.gridx++;
+		
+		c.gridx = 1;
+		c.gridy++;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		add(new JTextField(20), c);
+		
+		c.gridx = 1;
+		c.gridy = 2;
+		add(new JButton("Button1"), c);		
+		
 	}
 }
